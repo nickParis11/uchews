@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds163745.mlab.com:63745/uchews`, { mongoUseClient: true});
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/uchewsdb', { mongoUseClient: true});
 
 
 
