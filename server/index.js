@@ -46,7 +46,7 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  store: new MongoStore({ url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds163745.mlab.com:63745/uchews`})
+  store: new MongoStore({ url: process.env.MONGOLAB_URI || 'mongodb://localhost/uchewsdb'})
 }));
 app.use(passport.initialize());
 //set up the route to Google for authentication
@@ -103,7 +103,7 @@ app.get('/logout', (req, res) => {
   });
 });
 
-app.set('port', (process.env.PORT || 1337));
+app.set('port', (process.env.PORT || 3000));
 const port = app.get('port');
 
 
@@ -130,4 +130,5 @@ app.post('/input/findRestaurants', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Listening on ${port}`);
+  console.log(process.env.GOOGLE_CLIENT_ID);
 });
