@@ -11,7 +11,7 @@ const style = {
     textAlign: 'center',
     width: '50%',
   },
-  separater: {
+  separator: {
     height: '400px',
   }
 };
@@ -23,7 +23,7 @@ const Results = ({ results }) => {
       <Paper style={style.paper} zDepth={3}>
         <h2>Your Results!</h2>
         <MapsContainer results={results}/>
-        <div style={style.separater}></div>  {/* this provides the buffer between the map and the results */}
+        <div style={style.separator}></div>  {/* this provides the buffer between the map and the results */}
         <h1>#1</h1>                          {/* otherwise the map will overlap the results */}
         <h2>{results[0][0].name}</h2>
         {results[0][0].formatted_address}
