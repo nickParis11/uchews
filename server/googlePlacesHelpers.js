@@ -39,21 +39,21 @@ const handleQueries = function(body, cb) {
     axios.all(rankedCuisines.map((cuisine) => {
       return requestRestaurants(cuisine, lat, lng);
     }))
-    .then((responses) => {
-      const restaurants = [];
-      //aggregate the resulting restaurants into a restaurant matrix and add a cuisine property to each restaurant
-      for (let i = 0; i < responses.length; i++) {
-        //rank the returned restaurants in accordance with the users' input preferences
-        let rankedRest = handleRestaurants.rankRestaurant(responses[i].data, body.budget);
-        //filter out restaurants outside the input search radius
-        rankedRest = findDistance.filterByDist(rankedRest, lat, lng, radius);
-        restaurants.push(rankedRest);
-        restaurants[i].map((restaurant) => {
-          restaurant.cuisine = rankedCuisines[i];
-        });
-      }
-      cb(restaurants);
-    });
+      .then((responses) => {
+        const restaurants = [];
+        //aggregate the resulting restaurants into a restaurant matrix and add a cuisine property to each restaurant
+        for (let i = 0; i < responses.length; i++) {
+          //rank the returned restaurants in accordance with the users' input preferences
+          let rankedRest = handleRestaurants.rankRestaurant(responses[i].data, body.budget);
+          //filter out restaurants outside the input search radius
+          rankedRest = findDistance.filterByDist(rankedRest, lat, lng, radius);
+          restaurants.push(rankedRest);
+          restaurants[i].map((restaurant) => {
+            restaurant.cuisine = rankedCuisines[i];
+          });
+        }
+        cb(restaurants);
+      });
   });
 }
 
