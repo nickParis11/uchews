@@ -3,7 +3,6 @@ const Nodegeocoder = require('node-geocoder');
 const handleRestaurants = require('./handleRestaurants.js');
 const findDistance = require('./findDistance.js');
 
-
 //returns a promise to a query url for each cuisine type to be searched
 const requestRestaurants = function(cuisine, latitude, longitude, radius) {
   const searchURL = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${cuisine}+food&sensor=true&location=${latitude},${longitude}&key=${process.env.GOOGLE_API_KEY}`;
@@ -14,7 +13,6 @@ const requestRestaurants = function(cuisine, latitude, longitude, radius) {
     responseType: 'json'
   });
 }
-
 
 const handleQueries = function(body, cb) {
   //Use the rankCuisine function to transform the users' input data into a list of desired cuisine types
@@ -56,7 +54,6 @@ const handleQueries = function(body, cb) {
       });
   });
 }
-
 
 module.exports.requestRestaurants = requestRestaurants;
 module.exports.handleQueries = handleQueries;
