@@ -131,7 +131,7 @@ app.post('/input/findRestaurants', (req, res) => {
   });
 });
 
-console.log('google id on .env ',process.env.GOOGLE_CLIENT_ID)
+//console.log('google id on .env ',process.env.GOOGLE_CLIENT_ID)
 
 app.listen(port, () => {
   console.log(`Listening on ${port}`);
