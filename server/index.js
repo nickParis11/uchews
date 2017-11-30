@@ -63,7 +63,6 @@ app.use(session({
 }));
 
 
-
 app.use(passport.initialize());
 //set up the route to Google for authentication
 app.get('/auth/google', passport.authenticate('google', {
