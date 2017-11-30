@@ -1,19 +1,19 @@
-//rankCusine: pick the top three types of cusine based on counts of wantToEat and willNotEat, for each type of wantToEat +1, for each type of willNotEat -1.
-const rankCusine = function(body){
-  let cusineTypeCounter = {};
+//rankCuisine: pick the top three types of cuisine based on counts of wantToEat and willNotEat, for each type of wantToEat +1, for each type of willNotEat -1.
+const rankCuisine = function(body){
+  let cuisineTypeCounter = {};
   const wantToEat = body.wantToEat;
   wantToEat.forEach(wantToEatType => {
-    cusineTypeCounter[wantToEatType] =  cusineTypeCounter[wantToEatType] ?  cusineTypeCounter[wantToEatType] + 1 : 1;
+    cuisineTypeCounter[wantToEatType] =  cuisineTypeCounter[wantToEatType] ?  cuisineTypeCounter[wantToEatType] + 1 : 1;
   });
   const willNotEat = body.willNotEat;
   willNotEat.forEach(willNotEatType => {
-    cusineTypeCounter[willNotEatType] =  cusineTypeCounter[willNotEatType] ?  cusineTypeCounter[willNotEatType] - 1 : -1;
+    cuisineTypeCounter[willNotEatType] =  cuisineTypeCounter[willNotEatType] ?  cuisineTypeCounter[willNotEatType] - 1 : -1;
   });
-   cusineTypeSorted = Object.keys(cusineTypeCounter).sort((a,b) => {
-    return cusineTypeCounter[b]-cusineTypeCounter[a];
+   cuisineTypeSorted = Object.keys(cuisineTypeCounter).sort((a,b) => {
+    return cuisineTypeCounter[b]-cuisineTypeCounter[a];
    }
   );
-  const results = cusineTypeSorted.slice();
+  const results = cuisineTypeSorted.slice();
   if(results.length < 3){
     return results;
   }
@@ -30,35 +30,35 @@ const sortRestaurantByRating = function(a, b)
       return 0;
 };
 
-//rankRestaurant: for a given type of cusine and budget, sort the restaurants based on rating in a decreasing order.
+//rankRestaurant: for a given type of cuisine and budget, sort the restaurants based on rating in a decreasing order.
 const rankRestaurant = function(data, budget)
 {
   console.log('data prior to ranking restaurants: ', data);
   const budget_level = budget || 2;
-  //const restaurantsByCusine = data.results;
-  let restaurantsByCusine = data.results;
+  //const restaurantsByCuisine = data.results;
+  let restaurantsByCuisine = data.results;
   //if a budget_level is given
-   const restaurantsByCusineAndBudget = restaurantsByCusine.filter((restaurant) => {
+   const restaurantsByCuisineAndBudget = restaurantsByCuisine.filter((restaurant) => {
     return typeof(restaurant.price_level)==='number'&&restaurant.price_level === budget_level;
   });
-  if(restaurantsByCusineAndBudget.length === 0)
+  if(restaurantsByCuisineAndBudget.length === 0)
   {
-     restaurantsByCusine.sort(sortRestaurantByRating);
-     return restaurantsByCusine;
-     //return restaurantsByCusine.slice(0,1);
+     restaurantsByCuisine.sort(sortRestaurantByRating);
+     return restaurantsByCuisine;
+     //return restaurantsByCuisine.slice(0,1);
   }
-  if(restaurantsByCusineAndBudget.length === 1) {
-    return restaurantsByCusineAndBudget;}
-  if(restaurantsByCusineAndBudget.length > 1)
+  if(restaurantsByCuisineAndBudget.length === 1) {
+    return restaurantsByCuisineAndBudget;}
+  if(restaurantsByCuisineAndBudget.length > 1)
   {
-     restaurantsByCusineAndBudget.sort(sortRestaurantByRating);
-     return restaurantsByCusineAndBudget;
-     //return restaurantsByCusineAndBudget.slice(0,1);
+     restaurantsByCuisineAndBudget.sort(sortRestaurantByRating);
+     return restaurantsByCuisineAndBudget;
+     //return restaurantsByCuisineAndBudget.slice(0,1);
   }
 };
 
-//rankCusineByHistory: return a search history of wantToEat and willNotEat on cusine types
-const rankCusineByHistory = function(historyDataByType) {
+//rankCuisineByHistory: return a search history of wantToEat and willNotEat on cuisine types
+const rankCuisineByHistory = function(historyDataByType) {
   let historyDataByTypeObj = {wantToEat: [], willNotEat:[]};
 
   historyDataByType.forEach(eachHistoryType => {
@@ -81,19 +81,19 @@ const countFreq = function(arrData) {
   return counterSorted.slice(0, 1);
 };
 
-//recommendSearchDataByHistory: recommended search based on the most frequently searched distance, budget, the most recently searched location and the wantToEat and willNotEat cusine types from this specific user's seaching history.
+//recommendSearchDataByHistory: recommended search based on the most frequently searched distance, budget, the most recently searched location and the wantToEat and willNotEat cuisine types from this specific user's seaching history.
 const recommendSearchDataByHistory = function(historyData){
   const recommendSearchInput = {};
   for(var key in historyData) {
     if(key === 'foodType') {
-      recommendSearchInput[key] = rankCusineByHistory(historyData[key]);
+      recommendSearchInput[key] = rankCuisineByHistory(historyData[key]);
     }
     recommendSearchInput[key] = countFreq(historyData[key]);
   }
   return recommendSearchInput;
 };
 
-module.exports.rankCusine = rankCusine;
+module.exports.rankCuisine = rankCuisine;
 module.exports.rankRestaurant =rankRestaurant;
 module.exports.recommendSearchDataByHistory = recommendSearchDataByHistory;
 

@@ -17,8 +17,8 @@ const requestRestaurants = function(cuisine, latitude, longitude, radius) {
 
 
 const handleQueries = function(body, cb) {
-  //Use the rankCusine function to transform the users' input data into a list of desired cuisine types
-  let rankedCuisines = handleRestaurants.rankCusine(body);
+  //Use the rankCuisine function to transform the users' input data into a list of desired cuisine types
+  let rankedCuisines = handleRestaurants.rankCuisine(body);
 
   //use Google's geocoder API to transform an address or zip code into latitude & longitude
   let geocoder = Nodegeocoder({
