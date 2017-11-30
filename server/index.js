@@ -17,7 +17,7 @@ require('dotenv').config();
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'https://you-chews.herokuapp.com/auth/google/callback' || process.env.LOCAL_GOOGLE_REDIRECT,
+  callbackURL: 'https://u-chews.herokuapp.com/auth/google/callback' || process.env.LOCAL_GOOGLE_REDIRECT,
   passReqToCallback: true
   },
   //lookup or create a new user using the googleId (no associated username or password)
