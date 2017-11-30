@@ -36,6 +36,7 @@ passport.deserializeUser(function(_id, done) {
   });
 });
 
+
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -128,6 +129,7 @@ app.post('/input/findRestaurants', (req, res) => {
   });
 });
 
+console.log('google id on .env ',process.env.GOOGLE_CLIENT_ID)
 
 app.listen(port, () => {
   console.log(`Listening on ${port}`);
