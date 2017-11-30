@@ -65,13 +65,11 @@ app.use(session({
 
 app.use(passport.initialize());
 //set up the route to Google for authentication
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login']
+app.get('/auth/google', passport.authenticate('google', {
+  scope: ['https://www.googleapis.com/auth/plus.login']
 }));
 //set up the return handler after Google has authenticated
-app.get('/auth/google/callback',
-  passport.authenticate('google', {failureRedirect: '/' }),
-  function(req, res) {
+app.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/' }), function(req, res) {
     res.redirect('/');
 });
 
