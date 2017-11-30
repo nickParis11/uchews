@@ -33,7 +33,7 @@ const handleQueries = function(body, cb) {
     const lng = locationObject[0].longitude;
 
     //convert user's input radius from miles to meters
-    const radius = body.radius * 1600;
+    const radius = body.radius * 5280 * 12 * 2.54 / 100;
 
     //map the rankedCuisine array into an array of promises for querying Google Places
     axios.all(rankedCuisines.map((cuisine) => {
