@@ -130,7 +130,6 @@ app.post('/input/findRestaurants', (req, res) => {
   });
 });
 
-
 app.listen(port, () => {
   console.log(`Listening on ${port}`);
 });
