@@ -48,26 +48,26 @@ class Login extends React.Component {
       username: this.state.username,
       password: this.state.password,
     })
-      .then((response) => {
-        this.setState({
-          username: '',
-          password: ''
-        })
-        console.log(response.data)
-        if (response.data === false) {
-          this.setState({
-            floatUser: 'incorrect username or password'
-          })
-        } else {
-          this.props.clickHandle('home');
-        }
-      })
-      .catch((err) => {
-        console.log('could not reach server')
-        this.setState({
-            floatUser: 'incorrect username, try again'
-        })
-      })
+         .then((response) => {
+           this.setState({
+             username: '',
+             password: ''
+           })
+           console.log(response.data)
+           if (response.data === false) {
+             this.setState({
+               floatUser: 'incorrect username or password'
+             })
+           } else {
+             this.props.clickHandle('home');
+           }
+         })
+         .catch((err) => {
+           console.log('could not reach server')
+           this.setState({
+             floatUser: 'incorrect username, try again'
+           })
+         });
   }
 
 
@@ -75,61 +75,59 @@ class Login extends React.Component {
     return (
       <form action="/login" method="post">
         <Paper style={style.box}>
-        <AppBar
-          title="Log In"
-          showMenuIconButton={false}
+          <AppBar
+            title="Log In"
+            showMenuIconButton={false}
           />
           <div>
             <Paper style={style.text} zDepth={1}>
-                <div>
-                  <TextField
-                    hintText="Username Field"
-                    floatingLabelText={this.state.floatUser}
-                    underlineShow={false}
-                    onChange={this.onUserChange}
-                    value={this.state.username}
-                    name="username"
-                  />
-                  <Divider />
-                </div>
-                <div>
-                  <TextField
-                    hintText="Password Field"
-                    floatingLabelText="Password"
-                    type="password"
-                    underlineShow={false}
-                    onChange={this.onUserChange}
-                    name="password"
-                    value={this.state.password}
-                  />
-                  <Divider />
-                </div>
+              <div>
+                <TextField
+                  hintText="Username Field"
+                  floatingLabelText={this.state.floatUser}
+                  underlineShow={false}
+                  onChange={this.onUserChange}
+                  value={this.state.username}
+                  name="username"
+                />
+                <Divider />
+              </div>
+              <div>
+                <TextField
+                  hintText="Password Field"
+                  floatingLabelText="Password"
+                  type="password"
+                  underlineShow={false}
+                  onChange={this.onUserChange}
+                  name="password"
+                  value={this.state.password}
+                />
+                <Divider />
+              </div>
             </Paper>
-                <div>
-                  <RaisedButton
-                    primary={true}
-                    style={style.button}
-                    label="LOGIN"
-                    onClick={this.handleSubmit}
-                  />
-                  <RaisedButton
-                    primary={true}
-                    style={style.button}
-                    label="SIGN IN WITH GOOGLE"
-                    href="/auth/google"
-                  />
-                  <RaisedButton
-                    style={style.button}
-                    label="SIGNUP"
-                    onClick={() => this.props.clickHandle('signup')}
-                  />
-                </div>
+            <div>
+              <RaisedButton
+                primary={true}
+                style={style.button}
+                label="LOGIN"
+                onClick={this.handleSubmit}
+              />
+              <RaisedButton
+                primary={true}
+                style={style.button}
+                label="SIGN IN WITH GOOGLE"
+                href="/auth/google"
+              />
+              <RaisedButton
+                style={style.button}
+                label="SIGNUP"
+                onClick={() => this.props.clickHandle('signup')}
+              />
+            </div>
           </div>
         </Paper>
       </form>
-
-
-    )
+    );
   }
 }
 

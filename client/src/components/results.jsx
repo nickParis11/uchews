@@ -37,7 +37,7 @@ const Results = ({ results }) => {
         {results[2][0].formatted_address}
       </Paper>
     </div>
-  )
+  );
 }
 
 export default Results;
