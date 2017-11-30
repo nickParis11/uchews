@@ -100,7 +100,7 @@ app.post('/login', (req, res) => {
         if (result) {
           db.User.findOneAndUpdate({ username: req.body.username }, { sessionID: req.sessionID }, { new: true }, (err, updatedUser) => {
             res.send(result);
-          });
+         });
         } else {
           res.send(result);
         }
