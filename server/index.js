@@ -46,8 +46,10 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  store: new MongoStore({url : process.env.MONGOLAB_URI || 'mongodb://localhost/uchewsdb'})
+  store: new MongoStore({url : `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds125016.mlab.com:25016/uchews`|| 'mongodb://localhost/uchewsdb'})
 }));
+
+
 
 app.use(passport.initialize());
 //set up the route to Google for authentication
