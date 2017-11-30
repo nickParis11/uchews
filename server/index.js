@@ -17,7 +17,7 @@ require('dotenv').config();
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: process.env.LOCAL_GOOGLE_REDIRECT || 'https://frozen-beach-49440.herokuapp.com/auth/google/callback',
+  callbackURL: 'https://you-chews.herokuapp.com/auth/google/callback' || process.env.LOCAL_GOOGLE_REDIRECT,
   passReqToCallback: true
   },
   //lookup or create a new user using the googleId (no associated username or password)
@@ -36,6 +36,7 @@ passport.deserializeUser(function(_id, done) {
   });
 });
 
+
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -46,8 +47,11 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  store: new MongoStore({ url: `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds163745.mlab.com:63745/uchews`})
+  store: new MongoStore({url : `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds125016.mlab.com:25016/uchews`|| 'mongodb://localhost/uchewsdb'})
 }));
+
+
+
 app.use(passport.initialize());
 //set up the route to Google for authentication
 app.get('/auth/google',
@@ -103,7 +107,7 @@ app.get('/logout', (req, res) => {
   });
 });
 
-app.set('port', (process.env.PORT || 1337));
+app.set('port', (process.env.PORT || 3000));
 const port = app.get('port');
 
 
@@ -127,7 +131,9 @@ app.post('/input/findRestaurants', (req, res) => {
   });
 });
 
+//console.log('google id on .env ',process.env.GOOGLE_CLIENT_ID)
 
 app.listen(port, () => {
   console.log(`Listening on ${port}`);
 });
+
