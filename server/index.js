@@ -18,11 +18,11 @@ var dynamicCallback='';
 
 
 if (process.env.LOCAL === '1' ) {
-  dynamicCallback = process.env.LOCAL_GOOGLE_REDIRECT || 'https://u-chews.herokuapp.com/auth/google/callback';
-  console.log('local setup @@@@@@@@@')
+  dynamicCallback = process.env.LOCAL_GOOGLE_REDIRECT;
+  console.log('local setup @@@@@@@@@');
 } else {
-  dynamicCallback ='https://u-chews.herokuapp.com/auth/google/callback' || process.env.LOCAL_GOOGLE_REDIRECT
-  console.log('deployed setup @@@@@@@@@')
+  dynamicCallback ='https://u-chews.herokuapp.com/auth/google/callback';
+  console.log('deployed setup @@@@@@@@@');
 }
 
 //Set up google login protocol
