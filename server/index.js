@@ -13,11 +13,23 @@ const handleRestaurants = require('./handleRestaurants.js');
 
 require('dotenv').config();
 
+
+var dynamicCallback='';
+
+
+if (process.env.LOCAL === '1' ) {
+  dynamicCallback = process.env.LOCAL_GOOGLE_REDIRECT || 'https://u-chews.herokuapp.com/auth/google/callback';
+  console.log('local setup @@@@@@@@@')
+} else {
+  dynamicCallback ='https://u-chews.herokuapp.com/auth/google/callback' || process.env.LOCAL_GOOGLE_REDIRECT
+  console.log('deployed setup @@@@@@@@@')
+}
+
 //Set up google login protocol
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'https://u-chews.herokuapp.com/auth/google/callback' || process.env.LOCAL_GOOGLE_REDIRECT,
+  callbackURL: dynamicCallback,
   passReqToCallback: true
   },
   //lookup or create a new user using the googleId (no associated username or password)
