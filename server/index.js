@@ -14,7 +14,7 @@ const handleRestaurants = require('./handleRestaurants.js');
 require('dotenv').config();
 
 
-var dynamicCallback='';
+var dynamicCallback = '';
 
 
 if (process.env.LOCAL === '1' ) {
