@@ -10,6 +10,7 @@ const db = require('../database/index.js');
 const google = require('./googlePlacesHelpers.js');
 const authenticate = require('./authenticate.js');
 const handleRestaurants = require('./handleRestaurants.js');
+const yelp = require('./yelpHelpers.js');
 
 require('dotenv').config();
 
@@ -139,7 +140,9 @@ app.post('/input/findRestaurants', (req, res) => {
     if (err) {
       console.log('error on google response')
     } else {
-    // before returning results, get yelp data
+    // call yelp helper func with results
+      yelp.getRestaurantsData
+
     res.send(results);
     }
   });
