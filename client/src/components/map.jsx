@@ -34,7 +34,7 @@ class MapContainer extends React.Component {
       this.setState({
         showingInfoWindow: false,
         activeMarker: null
-      })
+      });
     }
   }
 
@@ -45,9 +45,9 @@ class MapContainer extends React.Component {
            style={style.map}
            zoom={12}
            initialCenter={{
-            lat: this.props.results[0][0].geometry.location.lat,
-            lng: this.props.results[0][0].geometry.location.lng
-          }}>
+             lat: this.props.results[0][0].geometry.location.lat,
+             lng: this.props.results[0][0].geometry.location.lng
+           }}>
         <Marker
           label={`#1`}
           title={`Choice 1`}
@@ -73,14 +73,14 @@ class MapContainer extends React.Component {
         <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}>
-            <div>
-              <h4>{this.state.selectedPlace.name}</h4>
-              <p>{this.state.selectedPlace.address}</p>
-            </div>
+          <div>
+            <h4>{this.state.selectedPlace.name}</h4>
+            <p>{this.state.selectedPlace.address}</p>
+          </div>
         </InfoWindow>
       </Map>
-    )
+    );
   }
 }
 
-export default GoogleApiWrapper({ apiKey: ('AIzaSyBh9_ui1G4wHPJR77XBNZrnXGt-beOlcL0') })(MapContainer);
+export default GoogleApiWrapper({ apiKey: (process.env.GOOGLE_API_KEY) })(MapContainer);

@@ -30,7 +30,6 @@ class Check extends React.Component {
         this.props.choose.splice(i, 1);
       }
     });
-
   }
 
   render() {
@@ -41,7 +40,7 @@ class Check extends React.Component {
                 style={style.checks}
                 label={this.props.type}
                 value={this.props.type} />
-    )
+    );
   }
 }
 

@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const db = require('../database/index.js');
 
-
 const checkUserExist = (user, cb) => {
   db.User.findOne({ username: user.username }, (err, user) => {
     if (user) {
@@ -24,8 +23,6 @@ const storeNewUser = (user, sessionID, cb) => {
       db.saveNewUser(newUser, cb);
     });
   });
-
-
 }
 
 module.exports.checkUserExist = checkUserExist;

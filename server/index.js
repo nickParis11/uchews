@@ -18,11 +18,11 @@ var dynamicCallback='';
 
 
 if (process.env.LOCAL === '1' ) {
-  dynamicCallback = process.env.LOCAL_GOOGLE_REDIRECT || 'https://u-chews.herokuapp.com/auth/google/callback';
-  console.log('local setup @@@@@@@@@')
+  dynamicCallback = process.env.LOCAL_GOOGLE_REDIRECT;
+  console.log('local setup @@@@@@@@@');
 } else {
-  dynamicCallback ='https://u-chews.herokuapp.com/auth/google/callback' || process.env.LOCAL_GOOGLE_REDIRECT
-  console.log('deployed setup @@@@@@@@@')
+  dynamicCallback ='https://u-chews.herokuapp.com/auth/google/callback';
+  console.log('deployed setup @@@@@@@@@');
 }
 
 //Set up google login protocol
@@ -66,13 +66,11 @@ app.use(session({
 
 app.use(passport.initialize());
 //set up the route to Google for authentication
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login']
+app.get('/auth/google', passport.authenticate('google', {
+  scope: ['https://www.googleapis.com/auth/plus.login']
 }));
 //set up the return handler after Google has authenticated
-app.get('/auth/google/callback',
-  passport.authenticate('google', {failureRedirect: '/' }),
-  function(req, res) {
+app.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: '/' }), function(req, res) {
     res.redirect('/');
 });
 
@@ -101,7 +99,7 @@ app.post('/login', (req, res) => {
         if (result) {
           db.User.findOneAndUpdate({ username: req.body.username }, { sessionID: req.sessionID }, { new: true }, (err, updatedUser) => {
             res.send(result);
-          });
+         });
         } else {
           res.send(result);
         }
@@ -143,9 +141,6 @@ app.post('/input/findRestaurants', (req, res) => {
   });
 });
 
-//console.log('google id on .env ',process.env.GOOGLE_CLIENT_ID)
-
 app.listen(port, () => {
   console.log(`Listening on ${port}`);
 });
-

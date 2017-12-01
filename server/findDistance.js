@@ -1,5 +1,3 @@
-
-
 const toRad = (num) => {
   return num * Math.PI / 180;
 }

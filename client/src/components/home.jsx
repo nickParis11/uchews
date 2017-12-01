@@ -6,7 +6,6 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import axios from 'axios';
 
-
 // sets styles for material ui components
 const style = {
   paper: {
@@ -26,39 +25,37 @@ const style = {
 
 class Home extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {
     const context = this;
     axios.get('/checkSession')
-      .then((response) => {
-        if (!response.data) {
-          context.props.clickHandle('signup');
-        }
-        console.log(response.data)
-      })
-      .catch((error) => {
-        console.log('error inside home')
-      })
+         .then((response) => {
+           if (!response.data) {
+             context.props.clickHandle('signup');
+           }
+           console.log(response.data)
+         })
+         .catch((error) => {
+           console.log('error inside home')
+         })
   }
 
   handleClose() {
     this.setState({open: false});
   }
 
-
   render() {
     return (
       <div>
         <Paper style={style.paper} zDepth={3}>
           <h2 style={style.hungry}>Hungry?</h2>
-          <RaisedButton style={style.button} primary={true} onClick={ () => this.props.clickHandle('input')} label="Get Started!" />
+          <RaisedButton style={style.button} primary={true} onClick={() => this.props.clickHandle('input')} label="Get Started!" />
         </Paper>
       </div>
-    )
+    );
   }
 }
-
 
 export default Home;

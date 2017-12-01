@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds125016.mlab.com:25016/uchews` || 'mongodb://localhost/uchewsdb', { mongoUseClient: true});
 
 let db = mongoose.connection;
@@ -13,15 +12,15 @@ db.once('open', function() {
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  username: { type: String },
-  password: { type: String },
-  googleId: { type: String },
-  sessionID: { type: String },
+  username: String,
+  password: String,
+  googleId: String,
+  sessionID: String,
   location: [String],
   distance: [String],
-  budget:[Number],
-  foodType:{type: Array,  "default" : []},
-  ateAt: {type: Array,  "default" : []}
+  budget: [Number],
+  foodType: {type: Array, "default" : []},
+  ateAt: {type: Array, "default" : []}
 });
 
 const User = mongoose.model('User', UserSchema);

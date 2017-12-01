@@ -1,64 +1,60 @@
-//rankCusine: pick the top three types of cusine based on counts of wantToEat and willNotEat, for each type of wantToEat +1, for each type of willNotEat -1.
-const rankCusine = function(body){
-  let cusineTypeCounter = {};
+//rankCuisine: pick the top three types of cuisine based on counts of wantToEat and willNotEat, for each type of wantToEat +1, for each type of willNotEat -1.
+const rankCuisine = function(body) {
+  let cuisineTypeCounter = {};
   const wantToEat = body.wantToEat;
-  wantToEat.forEach(wantToEatType => {
-    cusineTypeCounter[wantToEatType] =  cusineTypeCounter[wantToEatType] ?  cusineTypeCounter[wantToEatType] + 1 : 1;
+  wantToEat.forEach((wantToEatType) => {
+    cuisineTypeCounter[wantToEatType] ? cuisineTypeCounter[wantToEatType]++ : cuisineTypeCounter[wantToEatType] = 1;
   });
   const willNotEat = body.willNotEat;
-  willNotEat.forEach(willNotEatType => {
-    cusineTypeCounter[willNotEatType] =  cusineTypeCounter[willNotEatType] ?  cusineTypeCounter[willNotEatType] - 1 : -1;
+  willNotEat.forEach((willNotEatType) => {
+    cuisineTypeCounter[willNotEatType] ? cuisineTypeCounter[willNotEatType]-- : cuisineTypeCounter[willNotEatType] = -1;
   });
-   cusineTypeSorted = Object.keys(cusineTypeCounter).sort((a,b) => {
-    return cusineTypeCounter[b]-cusineTypeCounter[a];
-   }
-  );
-  const results = cusineTypeSorted.slice();
-  if(results.length < 3){
+  cuisineTypeSorted = Object.keys(cuisineTypeCounter).sort((a, b) => {
+    return cuisineTypeCounter[b] - cuisineTypeCounter[a];
+  });
+  const results = cuisineTypeSorted.slice();
+  if(results.length < 3) {
     return results;
   }
- return results.slice(0, 3);
+  return results.slice(0, 3);
 };
 
 
-const sortRestaurantByRating = function(a, b)
-{
+const sortRestaurantByRating = function(a, b) {
   if(a.rating < b.rating)
-        return 1;
-      if(a.rating > b.rating)
-        return -1;
-      return 0;
+    return 1;
+  if(a.rating > b.rating)
+    return -1;
+  return 0;
 };
 
-//rankRestaurant: for a given type of cusine and budget, sort the restaurants based on rating in a decreasing order.
-const rankRestaurant = function(data, budget)
-{
+//rankRestaurant: for a given type of cuisine and budget, sort the restaurants based on rating in a decreasing order.
+const rankRestaurant = function(data, budget) {
   console.log('data prior to ranking restaurants: ', data);
   const budget_level = budget || 2;
-  //const restaurantsByCusine = data.results;
-  let restaurantsByCusine = data.results;
+  //const restaurantsByCuisine = data.results;
+  let restaurantsByCuisine = data.results;
   //if a budget_level is given
-   const restaurantsByCusineAndBudget = restaurantsByCusine.filter((restaurant) => {
-    return typeof(restaurant.price_level)==='number'&&restaurant.price_level === budget_level;
+  const restaurantsByCuisineAndBudget = restaurantsByCuisine.filter((restaurant) => {
+    return typeof(restaurant.price_level) === 'number' && restaurant.price_level === budget_level;
   });
-  if(restaurantsByCusineAndBudget.length === 0)
-  {
-     restaurantsByCusine.sort(sortRestaurantByRating);
-     return restaurantsByCusine;
-     //return restaurantsByCusine.slice(0,1);
+  if(restaurantsByCuisineAndBudget.length === 0) {
+    restaurantsByCuisine.sort(sortRestaurantByRating);
+    return restaurantsByCuisine;
+    //return restaurantsByCuisine.slice(0,1);
   }
-  if(restaurantsByCusineAndBudget.length === 1) {
-    return restaurantsByCusineAndBudget;}
-  if(restaurantsByCusineAndBudget.length > 1)
-  {
-     restaurantsByCusineAndBudget.sort(sortRestaurantByRating);
-     return restaurantsByCusineAndBudget;
-     //return restaurantsByCusineAndBudget.slice(0,1);
+  if(restaurantsByCuisineAndBudget.length === 1) {
+    return restaurantsByCuisineAndBudget;
+  }
+  if(restaurantsByCuisineAndBudget.length > 1) {
+    restaurantsByCuisineAndBudget.sort(sortRestaurantByRating);
+    return restaurantsByCuisineAndBudget;
+    //return restaurantsByCuisineAndBudget.slice(0,1);
   }
 };
 
-//rankCusineByHistory: return a search history of wantToEat and willNotEat on cusine types
-const rankCusineByHistory = function(historyDataByType) {
+//rankCuisineByHistory: return a search history of wantToEat and willNotEat on cuisine types
+const rankCuisineByHistory = function(historyDataByType) {
   let historyDataByTypeObj = {wantToEat: [], willNotEat:[]};
 
   historyDataByType.forEach(eachHistoryType => {
@@ -72,29 +68,28 @@ const rankCusineByHistory = function(historyDataByType) {
 const countFreq = function(arrData) {
   const counter = {};
   arrData.forEach((value) => {
-    counter[value] = counter[value] ? counter[value] + 1: 1;
+    // counter[value] = counter[value] ? counter[value] + 1: 1;
+    counter[value] ? counter[value]++ : counter[value] = 1;
   });
   //return the most frequent one in history
-  counterSorted = Object.keys(counter).sort((a,b) => {
-    return counter[b]-counter[a];
-   });
+  counterSorted = Object.keys(counter).sort((a, b) => {
+    return counter[b] - counter[a];
+  });
   return counterSorted.slice(0, 1);
 };
 
-//recommendSearchDataByHistory: recommended search based on the most frequently searched distance, budget, the most recently searched location and the wantToEat and willNotEat cusine types from this specific user's seaching history.
-const recommendSearchDataByHistory = function(historyData){
+//recommendSearchDataByHistory: recommended search based on the most frequently searched distance, budget, the most recently searched location and the wantToEat and willNotEat cuisine types from this specific user's seaching history.
+const recommendSearchDataByHistory = function(historyData) {
   const recommendSearchInput = {};
-  for(var key in historyData) {
-    if(key === 'foodType') {
-      recommendSearchInput[key] = rankCusineByHistory(historyData[key]);
+  for (var key in historyData) {
+    if (key === 'foodType') {
+      recommendSearchInput[key] = rankCuisineByHistory(historyData[key]);
     }
     recommendSearchInput[key] = countFreq(historyData[key]);
   }
   return recommendSearchInput;
 };
 
-module.exports.rankCusine = rankCusine;
-module.exports.rankRestaurant =rankRestaurant;
+module.exports.rankCuisine = rankCuisine;
+module.exports.rankRestaurant = rankRestaurant;
 module.exports.recommendSearchDataByHistory = recommendSearchDataByHistory;
-
-
