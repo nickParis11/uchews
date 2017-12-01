@@ -135,8 +135,13 @@ app.get('/checkSession', (req, res) => {
 
 //Client sends survey results to /input/findRestaurants for API querying and ranking
 app.post('/input/findRestaurants', (req, res) => {
-  google.handleQueries(req.body, (results) => {
+  google.handleQueries(req.body, (err, results) => {
+    if (err) {
+      console.log('error on google response')
+    } else {
+    // before returning results, get yelp data
     res.send(results);
+    }
   });
 });
 
