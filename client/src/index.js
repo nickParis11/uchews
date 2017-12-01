@@ -67,7 +67,7 @@ class Index extends React.Component {
     console.log('submitting', data);
 
     axios.post('/input/findRestaurants', data)
-    .then( (response) => {
+    .then((response) => {
       this.setState({ results: response.data }, () => this.clickHandle('results'));
     });
   }
@@ -93,7 +93,7 @@ class Index extends React.Component {
       return obj;
     }.bind(e)();
 
-    this.setState( stateObj );
+    this.setState(stateObj);
   }
 
   // handles button clicks at the bottom of the app as forms are completed and
@@ -151,7 +151,7 @@ class Index extends React.Component {
       })
       .catch((error) => {
         console.log('error logging out', error)
-      })
+      });
   }
 
   render() {
@@ -161,7 +161,7 @@ class Index extends React.Component {
           <MuiThemeProvider muiTheme={muiTheme}>
             <AppBar title="uChews"
                     style={style.nav}
-                    onLeftIconButtonTouchTap={this.handleToggle}/>
+                    onLeftIconButtonTouchTap={this.handleToggle} />
             <Drawer docked={false}
                     width={200}
                     open={this.state.open}
@@ -174,10 +174,10 @@ class Index extends React.Component {
                     <Divider />
             </Drawer>
             <Home appView={this.state.appView}
-                  clickHandle={this.clickHandle}/>
+                  clickHandle={this.clickHandle} />
           </MuiThemeProvider>
         </div>
-      )
+      );
     } else if (this.state.appView === 'login') {
       return (
         <MuiThemeProvider muiTheme={muiTheme}>
@@ -188,7 +188,7 @@ class Index extends React.Component {
             />
           <Login appView={this.state.appView} clickHandle={this.clickHandle}/>
         </MuiThemeProvider>
-      )
+      );
     } else if (this.state.appView === 'input') {
       return (
         <div>
@@ -213,7 +213,7 @@ class Index extends React.Component {
                    errorText={this.state.errorText}/>
           </MuiThemeProvider>
         </div>
-      )
+      );
     } else if (this.state.appView === 'types') {
       return (
         <div>
@@ -238,7 +238,7 @@ class Index extends React.Component {
                    wantToEat={this.state.wantToEat}/>
           </MuiThemeProvider>
         </div>
-      )
+      );
     } else if (this.state.appView === 'waiting') {
       return (
         <div>
@@ -283,7 +283,7 @@ class Index extends React.Component {
                      results={this.state.results} />
           </MuiThemeProvider>
         </div>
-      )
+      );
     } else if (this.state.appView === 'signup') {
       return (
         <MuiThemeProvider muiTheme={muiTheme}>
@@ -296,11 +296,11 @@ class Index extends React.Component {
                   clickHandle={this.clickHandle}
                   googleClick={this.googleClick}/>
         </MuiThemeProvider>
-      )
+      );
     } else if (this.state.appView === 'dummy') {
       return (
         <Dummy clickHandle={this.clickHandle} />
-      )
+      );
     }
   }
 }

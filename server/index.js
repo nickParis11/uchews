@@ -18,7 +18,7 @@ var dynamicCallback='';
 
 
 if (process.env.LOCAL === '1' ) {
-  dynamicCallback = process.env.LOCAL_GOOGLE_REDIRECT || 'https://u-chews.herokuapp.com/auth/google/callback';
+  dynamicCallback = process.env.LOCAL_GOOGLE_REDIRECT || 'https://u-chews.herokuapp.com/auth/google/callback';
   console.log('local setup @@@@@@@@@')
 } else {
   dynamicCallback ='https://u-chews.herokuapp.com/auth/google/callback' || process.env.LOCAL_GOOGLE_REDIRECT

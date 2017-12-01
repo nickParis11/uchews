@@ -25,7 +25,7 @@ const style = {
 
 class Home extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentDidMount() {
@@ -51,7 +51,7 @@ class Home extends React.Component {
       <div>
         <Paper style={style.paper} zDepth={3}>
           <h2 style={style.hungry}>Hungry?</h2>
-          <RaisedButton style={style.button} primary={true} onClick={ () => this.props.clickHandle('input')} label="Get Started!" />
+          <RaisedButton style={style.button} primary={true} onClick={() => this.props.clickHandle('input')} label="Get Started!" />
         </Paper>
       </div>
     );
