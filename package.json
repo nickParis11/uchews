@@ -59,7 +59,9 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
+    "file-loader": "^1.1.5",
     "nodemon": "^1.12.1",
-    "uglifyjs-webpack-plugin": "^1.1.2"
+    "uglifyjs-webpack-plugin": "^1.1.2",
+    "url-loader": "^0.6.2"
   }
 }
