@@ -136,20 +136,18 @@ app.get('/checkSession', (req, res) => {
 
 //Client sends survey results to /input/findRestaurants for API querying and ranking
 app.post('/input/findRestaurants', (req, res) => {
-  google.handleQueries(req.body, (err, googleResultsArray) => {
+  google.handleQueries(req.body, (err, googleResultsMatrix) => {
     if (err) {
       console.log('error on google response',err)
     } else {
       // call yelp helper func with results
-      yelp.getRestaurantsData(googleResultsArray, (err, yelpResultsArray) => {
+      yelp.getYelpRestaurantData(googleResultsMatrix, (err, yelpResultsArray) => {
         if (err) {
           console.log(err);
         } else {
-          res.sendStatus(200)
-          //res.send(yelpResultsArray);
+          res.send(yelpResultsArray);
         }
-      })
-
+      });
     }
   });
 });
