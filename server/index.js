@@ -141,11 +141,11 @@ app.post('/input/findRestaurants', (req, res) => {
       console.log('error on google response',err)
     } else {
       // call yelp helper func with results
-      yelp.getYelpRestaurantData(googleResultsMatrix, (err, yelpResultsArray) => {
+      yelp.getYelpRestaurantData(googleResultsMatrix, (err, yelpResultsMatrix) => {
         if (err) {
           console.log(err);
         } else {
-          res.send(yelpResultsArray);
+          res.send(yelpResultsMatrix);
         }
       });
     }

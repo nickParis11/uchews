@@ -3,7 +3,6 @@ require('dotenv').config();
 
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds125016.mlab.com:25016/uchews` || 'mongodb://localhost/uchewsdb', { mongoUseClient: true});
 
-
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
