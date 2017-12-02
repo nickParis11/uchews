@@ -8,7 +8,7 @@ import Signup from './components/signup.jsx';
 import Login from './components/login.jsx';
 import Input from './components/input.jsx';
 import Results from './components/results.jsx';
-import Types from './components/types.jsx';
+import ChewserForm from './components/ChewserForm.jsx';
 import Waiting from './components/wating.jsx';
 import Dummy from './components/dummy.jsx';
 import AppBar from 'material-ui/AppBar';
@@ -100,7 +100,7 @@ class Index extends React.Component {
   // changes the current view
   clickHandle(view) {
     // this if statement handles how many types.jsx forms are loaded based on peopleNum
-    if (view === 'waiting') { // if view equals 'waiting', that means a typs.jsx for was just submitted
+    if (view === 'waiting') { // if view equals 'waiting', that means a types.jsx form was just submitted
       if (this.state.counter < this.state.peopleNum) { // check to see if everyone has submitted a form
         let increment = this.state.counter + 1;
         // we have to set the appView to a dummy page briefly, which in turn loads
@@ -232,7 +232,7 @@ class Index extends React.Component {
                     <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
                     <Divider />
             </Drawer>
-            <Types clickHandle={this.clickHandle}
+            <ChewserForm clickHandle={this.clickHandle}
                    counter={this.state.counter}
                    willNotEat={this.state.willNotEat}
                    wantToEat={this.state.wantToEat}/>
