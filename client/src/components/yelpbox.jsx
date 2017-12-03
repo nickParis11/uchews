@@ -40,7 +40,8 @@ const YelpBox = ({choice, num}) => {
       border: '2px solid #c9cacc',
       borderRadius: 25,
       maxWidth: '90%',
-      maxHeight: '90%'
+      maxHeight: '90%',
+      minWidth: 25
     },
     stars: {
       maxWidth: '30%',
@@ -81,7 +82,8 @@ const YelpBox = ({choice, num}) => {
       <div style={style.restaurantDetails}>
         <h3>{choice[0].name}</h3>
         <a>{choice[0].formatted_address}</a>
-        <p><img src={getStars(choice[0].rating)} style={style.stars}></img><a>{choice[0].yelpReviewCount} Reviews</a></p>
+        <p><img src={getStars(choice[0].rating)} style={style.stars}></img>
+        <a> {choice[0].yelpReviewCount} Reviews</a></p>
         <p style={style.review}>
           {choice[0].reviews.jsonBody.reviews.map((review) => {
             return <p>{review.text}</p>
