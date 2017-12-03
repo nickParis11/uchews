@@ -292,7 +292,7 @@ class Index extends React.Component {
               style={style.nav}
               showMenuIconButton={false}
               />
-          <Signup appView={this.state.appView} clickHandle={this.clickHandle}
+          <Signup appView={this.state.appView}
                   clickHandle={this.clickHandle}
                   googleClick={this.googleClick}/>
         </MuiThemeProvider>

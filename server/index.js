@@ -10,11 +10,12 @@ const db = require('../database/index.js');
 const google = require('./googlePlacesHelpers.js');
 const authenticate = require('./authenticate.js');
 const handleRestaurants = require('./handleRestaurants.js');
+const yelp = require('./yelpHelpers.js');
 
 require('dotenv').config();
 
 
-var dynamicCallback='';
+var dynamicCallback = '';
 
 
 if (process.env.LOCAL === '1' ) {
@@ -61,7 +62,6 @@ app.use(session({
   saveUninitialized: true,
   store: new MongoStore({url : `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds125016.mlab.com:25016/uchews`|| 'mongodb://localhost/uchewsdb'})
 }));
-
 
 
 app.use(passport.initialize());
@@ -136,8 +136,19 @@ app.get('/checkSession', (req, res) => {
 
 //Client sends survey results to /input/findRestaurants for API querying and ranking
 app.post('/input/findRestaurants', (req, res) => {
-  google.handleQueries(req.body, (results) => {
-    res.send(results);
+  google.handleQueries(req.body, (err, googleResultsMatrix) => {
+    if (err) {
+      console.log('error on google response',err)
+    } else {
+      // call yelp helper func with results
+      yelp.getYelpRestaurantData(googleResultsMatrix, (err, yelpResultsMatrix) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(yelpResultsMatrix);
+        }
+      });
+    }
   });
 });
 

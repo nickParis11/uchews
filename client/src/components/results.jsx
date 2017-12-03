@@ -1,6 +1,7 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
-import MapsContainer from './map.jsx'
+import MapsContainer from './map.jsx';
+import YelpBox from './yelpbox.jsx';
 
 const style = {
   paper: {
@@ -9,32 +10,38 @@ const style = {
     margin: '0 auto',
     padding: 50,
     textAlign: 'center',
-    width: '50%',
+    width: '60%',
   },
   separator: {
     height: '400px',
+  },
+  flexContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignContent: 'space-between',
+    maxWidth: 800,
+    margin: 'auto'
   }
 };
 
 const Results = ({ results }) => {
-  console.log(results);
+
+  console.log('RESULTS to client:',results);
   return (
     <div>
       <Paper style={style.paper} zDepth={3}>
+        <div style={{display: 'inline-block'}}>
+
         <h2>Your Results!</h2>
         <MapsContainer results={results}/>
         <div style={style.separator}></div>  {/* this provides the buffer between the map and the results */}
-        <h1>#1</h1>                          {/* otherwise the map will overlap the results */}
-        <h2>{results[0][0].name}</h2>
-        {results[0][0].formatted_address}
-
-        <h1>#2</h1>
-        <h2>{results[1][0].name}</h2>
-        {results[1][0].formatted_address}
-
-        <h1>#3</h1>
-        <h2>{results[2][0].name}</h2>
-        {results[2][0].formatted_address}
+                                             {/* otherwise the map will overlap the results */}
+        <div style={style.flexContainer}>
+          {results.map((choice, index) => {
+            return <YelpBox choice={choice} num={index + 1} key={index}/>
+          })}
+       </div>
+       </div>
       </Paper>
     </div>
   );

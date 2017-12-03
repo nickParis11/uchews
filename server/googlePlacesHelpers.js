@@ -50,7 +50,10 @@ const handleQueries = function(body, cb) {
             restaurant.cuisine = rankedCuisines[i];
           });
         }
-        cb(restaurants);
+        cb(null, restaurants);
+      })
+      .catch((err) => {
+        cb(err, null);
       });
   });
 }
