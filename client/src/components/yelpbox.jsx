@@ -11,59 +11,43 @@ import OneHalf from '../../dist/assets/yelp/1halfstar.png';
 import One from '../../dist/assets/yelp/1star.png';
 import None from '../../dist/assets/yelp/nostar.png';
 
-const style = {
-  restaurantBox: {
-    border: '2px solid #c9cacc',
-    borderRadius: 25,
-    display: 'flex',
-    flexDirection: 'row',
-    padding: '10px 0px 10px 0px',
-    maxWidth: 550
-  },
-  restaurantDetails: {
-    display: 'flex',
-    flexDirection: 'column',
-    minWidth: '60%'
-  },
-  review: {
-    fontStyle: 'italic',
-    fontSize: 13,
-    testAlign: 'left'
-  },
-  logo: {
-    maxWidth: 75,
-    float: 'right'
-  },
-  img: {
-    border: '2px solid #c9cacc',
-    borderRadius: 25,
-    maxWidth: '90%',
-    maxHeight: '90%'
-  },
-  stars: {
-    maxWidth: '30%',
-  }
-};
+const YelpBox = ({choice, num}) => {
 
+  const style = {
+    restaurantBox: {
+      border: '2px solid #c9cacc',
+      borderRadius: 25,
+      display: 'flex',
+      flexDirection: 'row',
+      padding: '10px 0px 10px 0px',
+      maxWidth: 550
+    },
+    restaurantDetails: {
+      display: 'flex',
+      flexDirection: 'column',
+      minWidth: '60%'
+    },
+    review: {
+      fontStyle: 'italic',
+      fontSize: 13,
+      testAlign: 'left'
+    },
+    logo: {
+      maxWidth: 75,
+      float: 'right'
+    },
+    img: {
+      border: '2px solid #c9cacc',
+      borderRadius: 25,
+      maxWidth: '90%',
+      maxHeight: '90%'
+    },
+    stars: {
+      maxWidth: '30%',
+    }
+  };
 
-class YelpBox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showMore: false
-    };
-    this.getStars = this.getStars.bind(this);
-    this.showMoreReviews = this.showMoreReviews.bind(this);
-  }
-
-  showMoreReviews() {
-    this.setState({
-      showMore: !this.state.showMore
-    });
-    document.getElementById('read-more').setAttribute('text', '');
-  }
-
-  getStars(rating) {
+  const getStars = (rating) => {
     if (parseInt(rating) === 5) {
       return Five;
     } else if (parseInt(rating) >= 4.5) {
@@ -87,40 +71,27 @@ class YelpBox extends React.Component {
     }
   }
 
-  render() {
-
-
-    return (
+  return (
+    <div>
+    <h1>#{num}</h1>
+    <div style={style.restaurantBox}>
       <div>
-      <h1>#{this.props.num}</h1>
-
-      <div style={style.restaurantBox}>
-        <div>
-          <a><img src={this.props.choice[0].yelpImg} style={style.img}></img></a>
-        </div>
-
-        <div style={style.restaurantDetails}>
-          <h3>{this.props.choice[0].name}</h3>
-          <a>{this.props.choice[0].formatted_address}</a>
-
-          <p><img src={this.getStars(this.props.choice[0].rating)} style={style.stars}></img>{this.props.choice[0].yelpReviewCount} Reviews</p>
-
-          <p style={style.review}>
-            {!this.state.showMore ? this.props.choice[0].reviews.jsonBody.reviews[0].text :
-              this.props.choice[0].reviews.jsonBody.reviews.map((review) => {
-                <p>review.text</p>
-            })}
-          <a onClick={this.showMoreReviews} id="read-more">Read More</a>
-          </p>
-          <a href={this.props.choice[0].yelpUrl} target="_blank"><img src={YelpLogo} alt="" style={style.logo}></img></a>
-        </div>
+        <a><img src={choice[0].yelpImg} style={style.img}></img></a>
       </div>
-
+      <div style={style.restaurantDetails}>
+        <h3>{choice[0].name}</h3>
+        <a>{choice[0].formatted_address}</a>
+        <p><img src={getStars(choice[0].rating)} style={style.stars}></img><a>{choice[0].yelpReviewCount} Reviews</a></p>
+        <p style={style.review}>
+          {choice[0].reviews.jsonBody.reviews.map((review) => {
+            return <p>{review.text}</p>
+          })}
+        </p>
+        <a href={choice[0].yelpUrl} target="_blank"><img src={YelpLogo} alt="" style={style.logo}></img></a>
       </div>
-
-    );
-  }
-
+    </div>
+    </div>
+  );
 }
 
 export default YelpBox;
