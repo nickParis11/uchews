@@ -7,6 +7,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import LocalDining from 'material-ui/svg-icons/maps/local-dining';
 import Face from 'material-ui/svg-icons/action/face';
 import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+import {ListItem} from 'material-ui/List'
 
 const iconButtonElement = (
   <IconButton>
@@ -19,15 +20,12 @@ const rightIconMenu = (
     iconButtonElement={iconButtonElement}
     anchorOrigin={{horizontal: 'left', vertical: 'top'}}
     targetOrigin={{horizontal: 'left', vertical: 'top'}}
-    onChange={openHandle}
-
     >
       <MenuItem
         primaryText="sounds yumm"
       />
       <MenuItem
         primaryText="sounds yuck"
-        selectionRenderer={handleClick}
       />
     </IconMenu>
 );
@@ -60,21 +58,16 @@ class PresentCuisine extends React.Component {
 
   render() {
     return (
-      <div>
       <ListItem
         leftAvatar={<Face />}
         rightIconButton={rightIconMenu}
+        onChange={this.openHandle}
         primaryText={this.props.type}
         name={this.props.name}
         checked={this.state.checked}
         onClick={this.checkHandle}
-        style={style.checks}
         value={this.props.type}
       />
-      <Divider
-        inset={true}
-      />
-      </div>
     );
   }
 }

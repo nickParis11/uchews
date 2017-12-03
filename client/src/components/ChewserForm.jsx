@@ -1,6 +1,6 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
-import List from 'material-ui/List';
+import {List} from 'material-ui/List';
 import PresentCuisine from './PresentCuisine.jsx'
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -20,7 +20,7 @@ const style = {
   },
 };
 
-class Types extends React.Component {
+class ChewserForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +44,8 @@ class Types extends React.Component {
 
   render() {
     // this doesn't hold its context inside the map function
-    var that = this;
+    var types = this.state.types;
+    console.log('TYPE:', types);
 
     return (
       <div>
@@ -54,18 +55,11 @@ class Types extends React.Component {
         >
           <h1>Chewser #{this.props.counter}</h1>
           <h2>What are you in the mood for?</h2>
-          <div
+          <List
             style={style.container}
           >
-            {this.state.types.map(function(type) {
-              return
-                <PresentCuisine
-                  name={"wantToEat"}
-                  type={type}
-                  choose={that.props.wantToEat}
-                />
-            })}
-          </div>
+            {types.map((type) => (<PresentCuisine key={type} type={type} />))}
+          </List>
           <RaisedButton
             label="Next"
             primary={true}
