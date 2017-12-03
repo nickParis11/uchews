@@ -23,7 +23,7 @@ const rightIconMenu = (
     anchorOrigin={{horizontal: 'left', vertical: 'top'}}
     targetOrigin={{horizontal: 'left', vertical: 'top'}}
     >
-    </IconMenu>
+  </IconMenu>
 );
 
 class PresentCuisine extends React.Component {
