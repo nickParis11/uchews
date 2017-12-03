@@ -17,7 +17,8 @@ const style = {
     borderRadius: 25,
     display: 'flex',
     flexDirection: 'row',
-    padding: '10px 0px 10px 0px'
+    padding: '10px 0px 10px 0px',
+    maxWidth: 550
   },
   restaurantDetails: {
     display: 'flex',
@@ -36,12 +37,11 @@ const style = {
   img: {
     border: '2px solid #c9cacc',
     borderRadius: 25,
-    maxWidth: '90%'
+    maxWidth: '90%',
+    maxHeight: '90%'
   },
   stars: {
-    maxWidth: '40%',
-    display: 'inline-block',
-    float: 'left'
+    maxWidth: '30%',
   }
 };
 
@@ -52,12 +52,15 @@ class YelpBox extends React.Component {
     this.state = {
       showMore: false
     };
+    this.getStars = this.getStars.bind(this);
+    this.showMoreReviews = this.showMoreReviews.bind(this);
   }
 
   showMoreReviews() {
     this.setState({
       showMore: !this.state.showMore
     });
+    document.getElementById('read-more').setAttribute('text', '');
   }
 
   getStars(rating) {
@@ -103,8 +106,11 @@ class YelpBox extends React.Component {
           <p><img src={this.getStars(this.props.choice[0].rating)} style={style.stars}></img>{this.props.choice[0].yelpReviewCount} Reviews</p>
 
           <p style={style.review}>
-            {this.props.choice[0].reviews.jsonBody.reviews[0].text}
-          <a onClick={this.showMoreReviews}>Read More</a>
+            {!this.state.showMore ? this.props.choice[0].reviews.jsonBody.reviews[0].text :
+              this.props.choice[0].reviews.jsonBody.reviews.map((review) => {
+                <p>review.text</p>
+            })}
+          <a onClick={this.showMoreReviews} id="read-more">Read More</a>
           </p>
           <a href={this.props.choice[0].yelpUrl} target="_blank"><img src={YelpLogo} alt="" style={style.logo}></img></a>
         </div>

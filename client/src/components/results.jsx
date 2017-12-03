@@ -18,7 +18,9 @@ const style = {
   flexContainer: {
     display: 'flex',
     flexDirection: 'column',
-    alignContent: 'space-between'
+    alignContent: 'space-between',
+    maxWidth: 800,
+    margin: 'auto'
   }
 };
 
@@ -28,16 +30,18 @@ const Results = ({ results }) => {
   return (
     <div>
       <Paper style={style.paper} zDepth={3}>
+        <div style={{display: 'inline-block'}}>
+
         <h2>Your Results!</h2>
         <MapsContainer results={results}/>
         <div style={style.separator}></div>  {/* this provides the buffer between the map and the results */}
                                              {/* otherwise the map will overlap the results */}
         <div style={style.flexContainer}>
           {results.map((choice, index) => {
-            return <YelpBox choice={choice} num={index + 1} />
+            return <YelpBox choice={choice} num={index + 1} key={index}/>
           })}
        </div>
-
+       </div>
       </Paper>
     </div>
   );
