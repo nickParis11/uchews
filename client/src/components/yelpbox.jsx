@@ -95,7 +95,7 @@ const YelpBox = ({choice, num}) => {
           {choice[0].reviews.jsonBody.reviews.map((review) => {
             return <p style={style.review}>{review.text}</p>
           })}
-        <a href={choice[0].yelpUrl} target="_blank"><img text="Read more on " src={YelpLogo} alt="" style={style.logo}></img></a>
+        <a href={choice[0].yelpUrl} target="_blank"><img src={YelpLogo} alt="" style={style.logo}></img></a>
         </a>
       </div>
     </div>

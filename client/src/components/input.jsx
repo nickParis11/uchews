@@ -110,7 +110,7 @@ class Input extends React.Component {
 
             <RaisedButton label="Continue To Chewser Preferences" primary={true} onClick={() => this.props.clickHandle("types")} />
             <h4>Or:</h4>
-            <RaisedButton label="Quick! Chews-For-Us" primary={true} onClick={this.props.quickChews} />
+            <RaisedButton label="Quick! Chews-For-Us" primary={true} onClick={this.props.handleQuick} />
 
           </form>
         </Paper>

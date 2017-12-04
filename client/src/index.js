@@ -125,7 +125,8 @@ class Index extends React.Component {
         errorText: '',
         counter: 1,
         results: [],
-        open: false
+        open: false,
+        quick: false
       })
     } else {
       this.setState({ appView: view, open: false });
@@ -158,7 +159,7 @@ class Index extends React.Component {
 
   handleQuick() {
     this.setState({
-      quick: true
+      quick: !this.state.quick
     });
     this.submitForm();
   }
@@ -220,7 +221,7 @@ class Index extends React.Component {
                    clickHandle={this.clickHandle}
                    changeHandle={this.changeHandle}
                    errorText={this.state.errorText}
-                   quickChews={this.handleQuick}/>
+                   handleQuick={this.handleQuick}/>
           </MuiThemeProvider>
         </div>
       );
@@ -291,7 +292,8 @@ class Index extends React.Component {
             </Drawer>
             <Results clickHandle={this.clickHandle}
                      results={this.state.results}
-                     quick={this.state.quick}/>
+                     quick={this.state.quick}
+                     handleQuick={this.handleQuick}/>
           </MuiThemeProvider>
         </div>
       );
