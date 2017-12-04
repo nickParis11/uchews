@@ -23,7 +23,7 @@ if (process.env.LOCAL === '1' ) {
   dynamicCallback = process.env.LOCAL_GOOGLE_REDIRECT;
 } else if ( process.env.LOCAL === 'AWS') {
   console.log('in aws @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-  dynamicCallback ='http://ec2-13-56-224-171.us-west-1.compute.amazonaws.com';
+  dynamicCallback ='http://ec2-13-56-224-171.us-west-1.compute.amazonaws.com/auth/google/callback';
 } else if ( process.env.LOCAL === 'AWSEB') {
   console.log('in ELASTIC BEAN &&&&&&&&&&&&&&&&&&&&&&&')
   dynamicCallback ='http://uchews-3ny56-env.us-east-2.elasticbeanstalk.com/auth/google/callback';
