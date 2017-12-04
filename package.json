@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/webpack --watch | nodemon --inspect server/index.js",
+    "start": "./node_modules/.bin/webpack -d --watch | nodemon --inspect server/index.js",
     "start-client": "./node_modules/.bin/webpack --watch",
     "start-server": "node server/index.js",
     "lint": "eslint **/*.js"
