@@ -3,7 +3,6 @@ var path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 var CompressionPlugin = require('compression-webpack-plugin');
 
-
 var BUILD_DIR = path.resolve(__dirname, 'client/dist');
 var APP_DIR = path.resolve(__dirname, 'client/src');
 
@@ -38,13 +37,13 @@ var config = {
       }
     }),
     new webpack.optimize.DedupePlugin(),
-    new CompressionPlugin({   
-      asset: "[path].gz[query]",
-      algorithm: "gzip",
-      test: /\.js$|\.css$|\.html$/,
-      threshold: 10240,
-      minRatio: 0.8
-    })
+    new CompressionPlugin({ 
+          asset: "[path].gz[query]",
+          algorithm: "gzip",
+          test: /\.js$|\.css$|\.html$/,
+          threshold: 10240,
+          minRatio: 0.8
+        })
   ]
 
 };
