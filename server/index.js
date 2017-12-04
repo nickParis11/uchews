@@ -14,17 +14,33 @@ const yelp = require('./yelpHelpers.js');
 
 require('dotenv').config();
 
+const app = express();
+
+app.get('*.js', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
 
 var dynamicCallback = '';
 
 
 if (process.env.LOCAL === '1' ) {
+  console.log('local setup !!!!!!!!!!!!!!!!!!!!!!!!!!!');
   dynamicCallback = process.env.LOCAL_GOOGLE_REDIRECT;
-  console.log('local setup @@@@@@@@@');
+} else if ( process.env.LOCAL === 'AWS') {
+  console.log('in aws @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+  dynamicCallback ='http://ec2-13-56-224-171.us-west-1.compute.amazonaws.com/auth/google/callback';
+} else if ( process.env.LOCAL === 'AWSEB') {
+  console.log('in ELASTIC BEAN &&&&&&&&&&&&&&&&&&&&&&&')
+  dynamicCallback ='http://uchews-3ny56-env.us-east-2.elasticbeanstalk.com/auth/google/callback';
 } else {
   dynamicCallback ='https://u-chews.herokuapp.com/auth/google/callback';
-  console.log('deployed setup @@@@@@@@@');
+  console.log('in heroku setup <<<<<<<<<<<<<<<');
 }
+
+//http://uchews-3ny56-env.us-east-2.elasticbeanstalk.com/
+
 
 //Set up google login protocol
 passport.use(new GoogleStrategy({
@@ -50,7 +66,6 @@ passport.deserializeUser(function(_id, done) {
 });
 
 
-const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
