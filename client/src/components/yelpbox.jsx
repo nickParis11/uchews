@@ -19,7 +19,7 @@ const YelpBox = ({choice, num}) => {
       borderRadius: 25,
       display: 'flex',
       flexDirection: 'row',
-      padding: '10px 0px 10px 0px',
+      padding: '10px 2px 10px 0px',
       maxWidth: 550
     },
     restaurantDetails: {
@@ -30,10 +30,16 @@ const YelpBox = ({choice, num}) => {
     review: {
       fontStyle: 'italic',
       fontSize: 13,
-      testAlign: 'left'
+      textAlign: 'left',
+      paddingRight: 2
+    },
+    text: {
+      fontWeight: 'bold',
+      fontSize: 13,
+      textAlign: 'left'
     },
     logo: {
-      maxWidth: 75,
+      maxWidth: 115,
       float: 'right'
     },
     img: {
@@ -84,12 +90,13 @@ const YelpBox = ({choice, num}) => {
         <a>{choice[0].formatted_address}</a>
         <p><img src={getStars(choice[0].rating)} style={style.stars}></img>
         <a> {choice[0].yelpReviewCount} Reviews</a></p>
-        <p style={style.review}>
+        <a style={style.text}>What people are saying:</a>
+        <a>
           {choice[0].reviews.jsonBody.reviews.map((review) => {
-            return <p>{review.text}</p>
+            return <p style={style.review}>{review.text}</p>
           })}
-        </p>
         <a href={choice[0].yelpUrl} target="_blank"><img src={YelpLogo} alt="" style={style.logo}></img></a>
+        </a>
       </div>
     </div>
     </div>
