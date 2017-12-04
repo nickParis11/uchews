@@ -39,7 +39,36 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    return (
+    console.log(this.props.quick)
+    if (this.props.quick) {
+      return (
+      <Map google={this.props.google}
+           onClick={this.onMapClicked}
+           style={style.map}
+           zoom={12}
+           initialCenter={{
+             lat: this.props.results[0][0].geometry.location.lat,
+             lng: this.props.results[0][0].geometry.location.lng
+           }}>
+        <Marker
+          label={`#1`}
+          title={`Choice 1`}
+          onClick={this.onMarkerClick}
+          name={this.props.results[0][0].name}
+          address={this.props.results[0][0].formatted_address}
+          position={{lat: this.props.results[0][0].geometry.location.lat, lng: this.props.results[0][0].geometry.location.lng}} />
+        <InfoWindow
+          marker={this.state.activeMarker}
+          visible={this.state.showingInfoWindow}>
+          <div>
+            <h4>{this.state.selectedPlace.name}</h4>
+            <p>{this.state.selectedPlace.address}</p>
+          </div>
+        </InfoWindow>
+      </Map>
+    );
+    } else {
+      return (
       <Map google={this.props.google}
            onClick={this.onMapClicked}
            style={style.map}
@@ -80,6 +109,7 @@ class MapContainer extends React.Component {
         </InfoWindow>
       </Map>
     );
+    }
   }
 }
 
