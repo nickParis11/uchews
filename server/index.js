@@ -14,6 +14,13 @@ const yelp = require('./yelpHelpers.js');
 
 require('dotenv').config();
 
+const app = express();
+
+app.get('*.js', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
 
 var dynamicCallback = '';
 
@@ -59,7 +66,6 @@ passport.deserializeUser(function(_id, done) {
 });
 
 
-const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
