@@ -299,6 +299,7 @@ class Index extends React.Component {
             <Results
               clickHandle={this.clickHandle}
               results={this.state.results}
+-             quick={this.state.quick}
               handleQuick={this.handleQuick}/>
           </div>
         </MuiThemeProvider>
