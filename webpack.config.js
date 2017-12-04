@@ -24,11 +24,13 @@ var config = {
       }
     ]
   },
-  plugins: [
-    new UglifyJsPlugin({
-      sourceMap: true
-    })
-  ]
+  plugins: []
 };
+
+// plugins: [
+//     new UglifyJsPlugin({
+//       sourceMap: true
+//     })
+//   ]
 
 module.exports = config;

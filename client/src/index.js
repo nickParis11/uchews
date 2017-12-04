@@ -8,7 +8,7 @@ import Signup from './components/signup.jsx';
 import Login from './components/login.jsx';
 import Input from './components/input.jsx';
 import Results from './components/results.jsx';
-import Types from './components/types.jsx';
+import ChewserForm from './components/ChewserForm.jsx'
 import Waiting from './components/wating.jsx';
 import Dummy from './components/dummy.jsx';
 import AppBar from 'material-ui/AppBar';
@@ -102,7 +102,7 @@ class Index extends React.Component {
   // changes the current view
   clickHandle(view) {
     // this if statement handles how many types.jsx forms are loaded based on peopleNum
-    if (view === 'waiting') { // if view equals 'waiting', that means a typs.jsx for was just submitted
+    if (view === 'waiting') { // if view equals 'waiting', that means a types.jsx form was just submitted
       if (this.state.counter < this.state.peopleNum) { // check to see if everyone has submitted a form
         let increment = this.state.counter + 1;
         // we have to set the appView to a dummy page briefly, which in turn loads
@@ -167,147 +167,158 @@ class Index extends React.Component {
   render() {
     if (this.state.appView === 'home') {
       return (
-        <div>
           <MuiThemeProvider muiTheme={muiTheme}>
-            <AppBar title="uChews"
-                    style={style.nav}
-                    onLeftIconButtonTouchTap={this.handleToggle} />
-            <Drawer docked={false}
-                    width={200}
-                    open={this.state.open}
-                    onRequestChange={(open) => this.setState({open})}>
-                    <MenuItem onClick={() => this.clickHandle('home')}>
-                        Home
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
-                    <Divider />
-            </Drawer>
-            <Home appView={this.state.appView}
-                  clickHandle={this.clickHandle} />
+            <div>
+              <AppBar title="uChews"
+                      style={style.nav}
+                      onLeftIconButtonTouchTap={this.handleToggle} />
+              <Drawer docked={false}
+                      width={200}
+                      open={this.state.open}
+                      onRequestChange={(open) => this.setState({open})}>
+                      <MenuItem onClick={() => this.clickHandle('home')}>
+                          Home
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                      <Divider />
+              </Drawer>
+              <Home appView={this.state.appView}
+                    clickHandle={this.clickHandle} />
+            </div>
           </MuiThemeProvider>
-        </div>
       );
     } else if (this.state.appView === 'login') {
       return (
         <MuiThemeProvider muiTheme={muiTheme}>
-          <AppBar
-            title="uChews"
-            style={style.nav}
-            showMenuIconButton={false}
-            />
-          <Login appView={this.state.appView} clickHandle={this.clickHandle}/>
-        </MuiThemeProvider>
-      );
-    } else if (this.state.appView === 'input') {
-      return (
-        <div>
-          <MuiThemeProvider muiTheme={muiTheme}>
-            <AppBar title="uChews"
-                    style={style.nav}
-                    onLeftIconButtonTouchTap={this.handleToggle}/>
-            <Drawer docked={false}
-                    width={200}
-                    open={this.state.open}
-                    onRequestChange={(open) => this.setState({open})}>
-                    <MenuItem onClick={() => this.clickHandle('home')}>
-                        Home
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
-                    <Divider />
-            </Drawer>
-            <Input data={this.state.data}
-                   clickHandle={this.clickHandle}
-                   changeHandle={this.changeHandle}
-                   errorText={this.state.errorText}
-                   handleQuick={this.handleQuick}/>
-          </MuiThemeProvider>
-        </div>
-      );
-    } else if (this.state.appView === 'types') {
-      return (
-        <div>
-          <MuiThemeProvider muiTheme={muiTheme}>
-            <AppBar title="uChews"
-                    style={style.nav}
-                    onLeftIconButtonTouchTap={this.handleToggle}/>
-            <Drawer docked={false}
-                    width={200}
-                    open={this.state.open}
-                    onRequestChange={(open) => this.setState({open})}>
-                    <MenuItem onClick={() => this.clickHandle('home')}>
-                        Home
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
-                    <Divider />
-            </Drawer>
-            <Types clickHandle={this.clickHandle}
-                   counter={this.state.counter}
-                   willNotEat={this.state.willNotEat}
-                   wantToEat={this.state.wantToEat}/>
-          </MuiThemeProvider>
-        </div>
-      );
-    } else if (this.state.appView === 'waiting') {
-      return (
-        <div>
-          <MuiThemeProvider muiTheme={muiTheme}>
-            <AppBar title="uChews"
-                    style={style.nav}
-                    onLeftIconButtonTouchTap={this.handleToggle}/>
-            <Drawer docked={false}
-                    width={200}
-                    open={this.state.open}
-                    onRequestChange={(open) => this.setState({open})}>
-                    <MenuItem onClick={() => this.clickHandle('home')}>
-                        Home
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
-                    <Divider />
-            </Drawer>
-            <Waiting submitForm={this.submitForm} />
-          </MuiThemeProvider>
-        </div>
-      )
-    } else if (this.state.appView === 'results') {
-      return (
-        <div>
-          <MuiThemeProvider muiTheme={muiTheme}>
-            <AppBar title="uChews"
-                    style={style.nav}
-                    onLeftIconButtonTouchTap={this.handleToggle}/>
-            <Drawer docked={false}
-                    width={200}
-                    open={this.state.open}
-                    onRequestChange={(open) => this.setState({open})}>
-                    <MenuItem onClick={() => this.clickHandle('home')}>
-                        Home
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
-                    <Divider />
-            </Drawer>
-            <Results clickHandle={this.clickHandle}
-                     results={this.state.results}
-                     quick={this.state.quick}
-                     handleQuick={this.handleQuick}/>
-          </MuiThemeProvider>
-        </div>
-      );
-    } else if (this.state.appView === 'signup') {
-      return (
-        <MuiThemeProvider muiTheme={muiTheme}>
+          <div>
             <AppBar
               title="uChews"
               style={style.nav}
               showMenuIconButton={false}
               />
-          <Signup appView={this.state.appView}
-                  clickHandle={this.clickHandle}
-                  googleClick={this.googleClick}/>
+            <Login appView={this.state.appView} clickHandle={this.clickHandle}/>
+          </div>
+        </MuiThemeProvider>
+      );
+    } else if (this.state.appView === 'input') {
+      return (
+          <MuiThemeProvider muiTheme={muiTheme}>
+            <div>
+              <AppBar title="uChews"
+                      style={style.nav}
+                      onLeftIconButtonTouchTap={this.handleToggle}/>
+              <Drawer docked={false}
+                      width={200}
+                      open={this.state.open}
+                      onRequestChange={(open) => this.setState({open})}>
+                      <MenuItem onClick={() => this.clickHandle('home')}>
+                          Home
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                      <Divider />
+              </Drawer>
+              <Input data={this.state.data}
+                     clickHandle={this.clickHandle}
+                     changeHandle={this.changeHandle}
+                     errorText={this.state.errorText}
+                     handleQuick={this.handleQuick}/>
+            </div>
+          </MuiThemeProvider>
+      );
+    } else if (this.state.appView === 'types') {
+      return (
+          <MuiThemeProvider muiTheme={muiTheme}>
+            <div>
+              <AppBar title="uChews"
+                      style={style.nav}
+                      onLeftIconButtonTouchTap={this.handleToggle}/>
+              <Drawer docked={false}
+                      width={200}
+                      open={this.state.open}
+                      onRequestChange={(open) => this.setState({open})}>
+                      <MenuItem onClick={() => this.clickHandle('home')}>
+                          Home
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                      <Divider />
+              </Drawer>
+              <ChewserForm clickHandle={this.clickHandle}
+                     counter={this.state.counter}
+                     willNotEat={this.state.willNotEat}
+                     wantToEat={this.state.wantToEat}/>
+            </div>
+          </MuiThemeProvider>
+      );
+    } else if (this.state.appView === 'waiting') {
+      return (
+          <MuiThemeProvider muiTheme={muiTheme}>
+            <div>
+              <AppBar title="uChews"
+                      style={style.nav}
+                      onLeftIconButtonTouchTap={this.handleToggle}/>
+              <Drawer docked={false}
+                      width={200}
+                      open={this.state.open}
+                      onRequestChange={(open) => this.setState({open})}>
+                      <MenuItem onClick={() => this.clickHandle('home')}>
+                          Home
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+                      <Divider />
+              </Drawer>
+              <Waiting submitForm={this.submitForm} />
+            </div>
+          </MuiThemeProvider>
+      )
+    } else if (this.state.appView === 'results') {
+      return (
+        <MuiThemeProvider
+          muiTheme={muiTheme}>
+          <div>
+            <AppBar
+              title="uChews"
+              style={style.nav}
+              onLeftIconButtonTouchTap={this.handleToggle}
+            />
+            <Drawer
+              docked={false}
+              width={200}
+              open={this.state.open}
+              onRequestChange={(open) => this.setState({open})}>
+              <MenuItem onClick={() => this.clickHandle('home')}>
+                Home
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+              <Divider />
+            </Drawer>
+            <Results
+              clickHandle={this.clickHandle}
+              results={this.state.results}
+-             quick={this.state.quick}
+              handleQuick={this.handleQuick}/>
+          </div>
+        </MuiThemeProvider>
+      );
+    } else if (this.state.appView === 'signup') {
+      return (
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <div>
+            <AppBar
+              title="uChews"
+              style={style.nav}
+              showMenuIconButton={false}
+            />
+            <Signup
+              appView={this.state.appView}
+              clickHandle={this.clickHandle}
+              googleClick={this.googleClick}
+            />
+          </div>
         </MuiThemeProvider>
       );
     } else if (this.state.appView === 'dummy') {
