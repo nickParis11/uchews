@@ -33,7 +33,7 @@ const Results = ({ results, quick }) => {
         <div style={{display: 'inline-block'}}>
 
         <h2>Your Results!</h2>
-        <MapsContainer results={results}/>
+        <MapsContainer results={results} quick={quick}/>
         <div style={style.separator}></div>  {/* this provides the buffer between the map and the results */}
                                              {/* otherwise the map will overlap the results */}
         <div style={style.flexContainer}>
