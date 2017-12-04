@@ -34,7 +34,7 @@ const style = {
 class Index extends React.Component {
   constructor(props) {
     super(props);
-    this.state= {
+    this.state = {
       appView: 'home',
       location: '',
       peopleNum: '',
@@ -210,7 +210,8 @@ class Index extends React.Component {
             <Input data={this.state.data}
                    clickHandle={this.clickHandle}
                    changeHandle={this.changeHandle}
-                   errorText={this.state.errorText}/>
+                   errorText={this.state.errorText}
+                   quickChews={this.submitForm}/>
           </MuiThemeProvider>
         </div>
       );
