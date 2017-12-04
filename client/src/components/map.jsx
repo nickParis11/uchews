@@ -39,7 +39,6 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.quick)
     if (this.props.quick) {
       return (
       <Map google={this.props.google}
