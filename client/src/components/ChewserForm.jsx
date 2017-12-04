@@ -10,12 +10,12 @@ const style = {
     height: '50%',
     margin: '0 auto',
     padding: 50,
-    textAlign: 'center',
+    textAlign: 'left',
     width: '50%',
   },
   container: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     flexWrap: 'wrap',
   },
 };
@@ -42,8 +42,15 @@ class ChewserForm extends React.Component {
     };
   }
 
+  componentDidMount () {
+    window.scrollTo(0, 0)
+  }
+
+
   render() {
     // this doesn't hold its context inside the map function
+    var willNotEat = this.props.willNotEat;
+    var wantToEat = this.props.wantToEat;
     var types = this.state.types;
     console.log('TYPE:', types);
 
@@ -58,11 +65,13 @@ class ChewserForm extends React.Component {
           <List
             style={style.container}
           >
-            {types.map((type) => (<PresentCuisine key={type} type={type} />))}
+            {types.map((type) => (<PresentCuisine key={type} type={type} wantToEat={wantToEat} willNotEat={willNotEat} />))}
           </List>
           <RaisedButton
-            label="Next"
+            label="Chews"
+            margin="20"
             primary={true}
+            fullWidth={true}
             onClick={ () => this.props.clickHandle("waiting") } />
         </Paper>
       </div>

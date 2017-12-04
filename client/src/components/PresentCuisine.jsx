@@ -6,7 +6,9 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import LocalDining from 'material-ui/svg-icons/maps/local-dining';
 import Face from 'material-ui/svg-icons/action/face';
-import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+import Mood from 'material-ui/svg-icons/social/mood';
+import MoodBad from 'material-ui/svg-icons/social/mood-bad';
+import {grey400, green500, red500, darkBlack, lightBlack} from 'material-ui/styles/colors';
 import {ListItem} from 'material-ui/List'
 
 const iconButtonElement = (
@@ -21,12 +23,6 @@ const rightIconMenu = (
     anchorOrigin={{horizontal: 'left', vertical: 'top'}}
     targetOrigin={{horizontal: 'left', vertical: 'top'}}
     >
-      <MenuItem
-        primaryText="sounds yumm"
-      />
-      <MenuItem
-        primaryText="sounds yuck"
-      />
     </IconMenu>
 );
 
@@ -35,17 +31,10 @@ class PresentCuisine extends React.Component {
     super(props);
     this.state = {
       open:false,
-    };
-    this.openHandle = this.openHandle.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
+      clickCounter: -1,
 
-  openHandle(event, index, value) {
-    if (event) {
-      this.setState({ open: !this.state.open }, () => {
-        console.log('Congrats: changed the state!');
-      });
-    }
+    };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(event) {
@@ -57,18 +46,102 @@ class PresentCuisine extends React.Component {
   }
 
   render() {
-    return (
-      <ListItem
-        leftAvatar={<Face />}
-        rightIconButton={rightIconMenu}
-        onChange={this.openHandle}
-        primaryText={this.props.type}
-        name={this.props.name}
-        checked={this.state.checked}
-        onClick={this.checkHandle}
-        value={this.props.type}
-      />
-    );
+    if (this.state.clickCounter === -1) {
+      return (
+        <span>
+        <ListItem
+          leftAvatar={<Face />}
+          rightIcon={rightIconMenu}
+          onClick={(event) => {
+            this.setState(prevState => {
+              return {clickCounter: prevState.clickCounter + 1};
+            });
+            this.props.wantToEat.push(this.props.type)
+          }}
+          primaryText={this.props.type}
+          name={this.props.name}
+          value={this.props.type}
+          style={{
+            textAlign: 'left',
+            width: 'auto',
+          }}
+        />
+        </span>
+      )
+    } else if (this.state.clickCounter === 0) {
+      return (
+        <span>
+        <ListItem
+          leftAvatar={
+            <Mood
+              color={green500}
+            />
+          }
+          rightIconButton={rightIconMenu}
+          onClick={(event) => {
+            this.setState(prevState => {
+              return {clickCounter: prevState.clickCounter + 1};
+            });
+            this.props.wantToEat.pop()
+            this.props.willNotEat.push(this.props.type)
+          }}
+          primaryText={this.props.type}
+          name={this.props.name}
+          value={this.props.type}
+          style={{
+            textAlign: 'left',
+            width: 'auto',
+          }}
+        />
+        </span>
+      )
+    } else if (this.state.clickCounter === 1) {
+      return (
+        <span>
+        <ListItem
+          leftAvatar={
+            <MoodBad
+              color={red500}
+            />
+          }
+          rightIconButton={rightIconMenu}
+          onClick={(event) => {
+            this.setState(prevState => {
+              return {clickCounter: prevState.clickCounter + 1};
+            });
+            this.props.willNotEat.pop()
+          }}
+          primaryText={this.props.type}
+          name={this.props.name}
+          value={this.props.type}
+          style={{
+            textAlign: 'left',
+            width: 'auto',
+          }}
+        />
+        </span>
+      )
+    } else {
+      return(
+        <span>
+        <ListItem
+          leftAvatar={<Face />}
+          rightIconButton={rightIconMenu}
+          onClick={(event) =>
+            this.setState(prevState => {
+              return {clickCounter: -1};
+            })}
+          primaryText={this.props.type}
+          name={this.props.name}
+          value={this.props.type}
+          style={{
+            textAlign: 'left',
+            width: 'auto',
+          }}
+        />
+        </span>
+      )
+    }
   }
 }
 
