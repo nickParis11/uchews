@@ -1,24 +1,61 @@
+const _ = require('underscore');
+
 //rankCuisine: pick the top three types of cuisine based on counts of wantToEat and willNotEat, for each type of wantToEat +1, for each type of willNotEat -1.
 const rankCuisine = function(body) {
+  const types = ['American', 'Asian', 'Chinese', 'Dessert', 'Greek', 'Hamburgers', 'Healthy', 'Indian',
+                 'Italian', 'Japanese', 'Mediterranean', 'Mexican', 'Middle Eastern', 'Pasta', 'Pizza',
+                 'Salads', 'Sandwiches', 'Seafood', 'Soup', 'Sushi', 'Thai', 'Vegetarian', 'Wings', 'Wraps'];
+
   let cuisineTypeCounter = {};
+  for (let i = 0; i < types.length; i++) {
+    cuisineTypeCounter[types[i]] = 0;
+  }
+
   const wantToEat = body.wantToEat;
   wantToEat.forEach((wantToEatType) => {
-    cuisineTypeCounter[wantToEatType] ? cuisineTypeCounter[wantToEatType]++ : cuisineTypeCounter[wantToEatType] = 1;
+    cuisineTypeCounter[wantToEatType]++;
   });
   const willNotEat = body.willNotEat;
   willNotEat.forEach((willNotEatType) => {
-    cuisineTypeCounter[willNotEatType] ? cuisineTypeCounter[willNotEatType]-- : cuisineTypeCounter[willNotEatType] = -1;
+    cuisineTypeCounter[willNotEatType]--;
   });
-  cuisineTypeSorted = Object.keys(cuisineTypeCounter).sort((a, b) => {
-    return cuisineTypeCounter[b] - cuisineTypeCounter[a];
-  });
-  const results = cuisineTypeSorted.slice();
-  if(results.length < 3) {
-    return results;
-  }
-  return results.slice(0, 3);
-};
 
+  let groups = _.groupBy(types, (type) => {
+    return cuisineTypeCounter[type];
+  });
+
+  const output = [];
+
+  const keys = Object.keys(groups); // array of keys [0, 1, -1...]
+  var entries = [];
+
+  for (let l = 0; l < keys.length; l++) {
+    entries.push([keys[l], groups[keys[l]]]);
+  }
+
+  const sorted = _.sortBy(entries, (tuple) => {
+    // return the additive inverse of the count to get descending order
+    return -tuple[0];
+  });
+  // const sorted = _.sortBy(Object.entries(groups), (tuple) => {
+  //   // return the additive inverse of the count to get descending order
+  //   return -tuple[0];
+  // });
+
+  var j = 0;
+  while (output.length < 3 && j < sorted.length) {
+    // make a randomized copy of subarray
+    var k = 0;
+    var randomized = _.shuffle(sorted[j][1]);
+    while (output.length < 3 && k < randomized.length) {
+      output.push(randomized[k]);
+      k++;
+    }
+    j++;
+  }
+
+  return output;
+};
 
 const sortRestaurantByRating = function(a, b) {
   if(a.rating < b.rating)
