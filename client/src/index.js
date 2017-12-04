@@ -102,8 +102,11 @@ class Index extends React.Component {
   // changes the current view
   clickHandle(view) {
     // this if statement handles how many types.jsx forms are loaded based on peopleNum
-    if (view === 'waiting') { // if view equals 'waiting', that means a types.jsx form was just submitted
-      if (this.state.counter < this.state.peopleNum) { // check to see if everyone has submitted a form
+    if (view === 'waiting') { // if view equals 'waiting', a types.jsx for was submitted
+      if (this.state.quick === true) {
+        //if quick go to waiting view
+        this.setState({ appView: view }, () => this.submitForm() );
+      } else if (this.state.counter < this.state.peopleNum) { // check to see if everyone has submitted a form
         let increment = this.state.counter + 1;
         // we have to set the appView to a dummy page briefly, which in turn loads
         // another types page, otherwise the checkboxes won't reset
@@ -159,8 +162,9 @@ class Index extends React.Component {
 
   handleQuick() {
     this.setState({
-      quick: !this.state.quick
+      quick: true
     });
+    //this.clickHandle('waiting');
     this.submitForm();
   }
 
