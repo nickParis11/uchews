@@ -24,7 +24,7 @@ const style = {
   }
 };
 
-const Results = ({ results }) => {
+const Results = ({ results, quick }) => {
 
   console.log('RESULTS to client:',results);
   return (
@@ -37,7 +37,8 @@ const Results = ({ results }) => {
         <div style={style.separator}></div>  {/* this provides the buffer between the map and the results */}
                                              {/* otherwise the map will overlap the results */}
         <div style={style.flexContainer}>
-          {results.map((choice, index) => {
+          {quick ? <YelpBox choice={results[0]} num={1}/> :
+            results.map((choice, index) => {
             return <YelpBox choice={choice} num={index + 1} key={index}/>
           })}
        </div>

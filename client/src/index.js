@@ -45,7 +45,8 @@ class Index extends React.Component {
       errorText: '',
       counter: 1,
       results: [],
-      open: false
+      open: false,
+      quick: false
 
     };
     this.clickHandle = this.clickHandle.bind(this);
@@ -53,6 +54,7 @@ class Index extends React.Component {
     this.submitForm = this.submitForm.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleQuick = this.handleQuick.bind(this);
   }
 
   submitForm() {
@@ -154,6 +156,13 @@ class Index extends React.Component {
       });
   }
 
+  handleQuick() {
+    this.setState({
+      quick: true
+    });
+    this.submitForm();
+  }
+
   render() {
     if (this.state.appView === 'home') {
       return (
@@ -211,7 +220,7 @@ class Index extends React.Component {
                    clickHandle={this.clickHandle}
                    changeHandle={this.changeHandle}
                    errorText={this.state.errorText}
-                   quickChews={this.submitForm}/>
+                   quickChews={this.handleQuick}/>
           </MuiThemeProvider>
         </div>
       );
@@ -281,7 +290,8 @@ class Index extends React.Component {
                     <Divider />
             </Drawer>
             <Results clickHandle={this.clickHandle}
-                     results={this.state.results} />
+                     results={this.state.results}
+                     quick={this.state.quick}/>
           </MuiThemeProvider>
         </div>
       );
