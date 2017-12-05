@@ -48,7 +48,6 @@ class ChewserForm extends React.Component {
 
 
   render() {
-    // this doesn't hold its context inside the map function
     var willNotEat = this.props.willNotEat;
     var wantToEat = this.props.wantToEat;
     var types = this.state.types;
