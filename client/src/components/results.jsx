@@ -12,9 +12,6 @@ const style = {
     textAlign: 'center',
     width: '60%',
   },
-  separator: {
-    height: '400px',
-  },
   flexContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -34,8 +31,7 @@ const Results = ({ results, quick }) => {
 
         <h2>Your Results!</h2>
         <MapsContainer results={results} quick={quick}/>
-        <div style={style.separator}></div>  {/* this provides the buffer between the map and the results */}
-                                             {/* otherwise the map will overlap the results */}
+        <div></div>
         <div style={style.flexContainer}>
           {quick ? <YelpBox choice={results[0]} num={1}/> :
             results.map((choice, index) => {
